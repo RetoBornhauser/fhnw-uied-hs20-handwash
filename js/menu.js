@@ -1,7 +1,9 @@
 AFRAME.registerComponent("highlight", {
   init: function() {
-    
-    console.log(this.el)
+    var backToMenuButton = (this.backToMenuButton = this.el.querySelector(
+      "#backToMenuButton"
+    ));
+
     var tutorialButton = (this.tutorialButton = this.el.querySelector(
       "#tutorialButton"
     ));
@@ -12,6 +14,8 @@ AFRAME.registerComponent("highlight", {
 
     this.onTutorialClicked = this.onTutorialClicked.bind(this);
     this.onTimerClicked = this.onTimerClicked.bind(this);
+    this.onBackToMenuClicked = this.onBackToMenuClicked.bind(this);
+
     this.onMouseEnter = this.onMouseEnter.bind(this);
     this.onMouseLeave = this.onMouseLeave.bind(this);
     this.reset = this.reset.bind(this);
@@ -26,6 +30,34 @@ AFRAME.registerComponent("highlight", {
     timerButton.addEventListener("click", this.onTimerClicked);
     timerButton.addEventListener("mouseenter", this.onMouseEnter);
     timerButton.addEventListener("mouseleave", this.onMouseLeave);
+
+    backToMenuButton.addEventListener("click", this.onBackToMenuClicked);
+  },
+  
+  onBackToMenuClicked: function(evt) {
+    var buttonEls = (this.buttonEls = document.querySelectorAll(
+      ".menu-button"
+    ));
+    document.querySelector("#menu").removeState("clicked");
+
+    //Add all UI Buttons to Magic Mirror
+    for (var i = 0; i < buttonEls.length; ++i) {
+      buttonEls[i].setAttribute("visible", true);
+      buttonEls[i].play();
+      buttonEls[i].emit("mouseleave");
+    }
+
+    document.querySelector("#tutorial").setAttribute("visible", false);
+     document.querySelector("#timer-container").setAttribute("visible", false);
+    document
+      .querySelector("#manipulateAnimation")
+      .setAttribute("visible", false);
+     document
+      .querySelector("#manipulateAnimation")
+      .setAttribute("animation-mixer", "clip: four");
+    document
+      .querySelector("#backToMenuContainer")
+      .setAttribute("visible", false);
   },
 
   onTutorialClicked: function(evt) {
@@ -39,6 +71,9 @@ AFRAME.registerComponent("highlight", {
       buttonEls[i].setAttribute("visible", false);
     }
 
+    document
+      .querySelector("#backToMenuContainer")
+      .setAttribute("visible", true);
     document.querySelector("#tutorial").setAttribute("visible", true);
     document
       .querySelector("#manipulateAnimation")
@@ -55,6 +90,14 @@ AFRAME.registerComponent("highlight", {
     for (var i = 0; i < buttonEls.length; ++i) {
       buttonEls[i].setAttribute("visible", false);
     }
+    
+  
+    document
+      .querySelector("#backToMenuContainer")
+      .setAttribute("visible", true);
+     
+
+    document.querySelector("#timer-container").setAttribute("visible", true);
   },
 
   onMouseEnter: function(evt) {

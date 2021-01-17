@@ -1,37 +1,17 @@
-Welcome to Glitch
-=================
+# Hände waschen | FHNW UIED HS20 | Semesterprojekt
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+Das Projekt umfasst eine interaktive 3D-Anleitung zum korrekten Händewaschen. Die einzelnen Schritte basieren auf denjenigen der Kampagne "#Seifenboss" des Kantons Basel-Stadt.
+Die Applikation ist in zwei Teile gegliedert. Im Tutorial kann man sich die einzelnen Schritte anschauen und sich diese einprägen. Beim Timer sind die einzelnen Animationen aneinandergefügt und wechseln mit der Zeitvorgabe. Der Timer soll die Nutzerinnen und Nutzer dabei unterstützen, die einzelnen Schritte durchzuführen und sich an die Zeitvorgabe zu halten.
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
+[Projektvorschau](https://fhnw-uied-hs20-handwash.glitch.me)
 
-Find out more [about Glitch](https://glitch.com/about).
+## Technologie
 
+- Blender: Modellierung der Umgebung und animation der Hände mittels NLA-Tracks
+- Aframe: Einbindung der erstellten Modelle in eine Webapplikation. Die Ansteuerung der NLA-Tracks wird mittels [aframe-extras](https://github.com/n5ro/aframe-extras) bewerkstelligt. Der Timer stammt von [aframe-gui](https://github.com/rdub80/aframe-gui)
+- JS
 
-Your Project
-------------
+## Made with [Glitch](https://glitch.com/)
 
-### ← README.md
-
-That's this file, where you can tell people what your cool website does and how you built it.
-
-### ← index.html
-
-Where you'll write the content of your website. 
-
-### ← style.css
-
-CSS files add styling rules to your content.
-
-### ← script.js
-
-If you're feeling fancy you can add interactivity to your site with JavaScript.
-
-### ← assets
-
-Drag in `assets`, like images or music, to add them to your project
-
-Made by [Glitch](https://glitch.com/)
--------------------
-
-\ ゜o゜)ノ
+Für die Entwicklung und zusammenarbeit haben wir Glitch verwendet. Die Applikation ist ebenfalls über Glitch gehosted.
+Wir haben uns für diese Variante entschieden, da wir das Projekt so leichter Teilen können und interessierte Personen ohne den Einsatz von Git ihre eigene Kopie des Projekts mittels der "Remix-Funktion" zur verfügung haben.

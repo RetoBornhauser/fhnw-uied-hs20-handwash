@@ -6,8 +6,11 @@
     <meta name="description" content="Hello, WebVR! • A-Frame" />
     <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="/js/timer.js"></script>
     <script src="/js/menu.js"></script>
     <script src="/js/tutorial.js"></script>
+
+    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
   </head>
   <body>
     <a-scene
@@ -28,10 +31,10 @@
           Model source:
           Modified with Blender: Pascal Stump & Reto Bornhauser
         -->
-        
+
         <a-assets-item
           id="bathroom"
-          src="https://cdn.glitch.com/0be449f4-47f5-4f5c-afa7-b1d08243b82b%2Fbathroom.glb?v=1610356539560"
+          src="https://cdn.glitch.com/0be449f4-47f5-4f5c-afa7-b1d08243b82b%2Fbathroom.glb?v=1610878044427"
         >
         </a-assets-item>
         <!--
@@ -41,7 +44,7 @@
         -->
         <a-assets-item
           id="handwash"
-          src="https://cdn.glitch.com/0be449f4-47f5-4f5c-afa7-b1d08243b82b%2FAnimationHands.glb?v=1610380308316"
+          src="https://cdn.glitch.com/0be449f4-47f5-4f5c-afa7-b1d08243b82b%2FAnimatedHands.glb?v=1610879035281"
         >
         </a-assets-item>
 
@@ -95,7 +98,6 @@
         <a-gltf-model
           id="manipulateAnimation"
           src="#handwash"
-          
           scale="0.6 0.6 .6"
           visible="false"
         >
@@ -124,6 +126,28 @@
       <a-entity id="ui" position="0.785 1.450 -0.486">
         <a-entity id="menu" highlight>
           <a-entity
+            id="backToMenuContainer"
+            position="-0.14 0.05 0.067"
+            visible="false"
+          >
+            <a-triangle
+              color="#FFFFF"
+              vertex-c="1 -1 0"
+              material=""
+              geometry="vertexC: 0 -0.1 0; vertexA: 0 0.1 0; vertexB: -0.2 0 0"
+              scale="0.3 0.3 0.3"
+            ></a-triangle>
+
+            <a-plane
+              id="backToMenuButton"
+              class="raycastable menu-button"
+              geometry="height: 0.03; width: 0.03"
+              position="-0.01561 0 0.008"
+              material=""
+            >
+            </a-plane>
+          </a-entity>
+          <a-entity
             id="tutorialButton"
             position="0 0 0"
             mixin="frame"
@@ -149,27 +173,8 @@
         </a-entity>
       </a-entity>
 
-      <!-- Tutorial Section -->
+      <!--Start Tutorial Section -->
       <a-entity id="tutorial" position="0 0 0" visible="false" tutorial>
-        <a-entity position="0.639 1.5 -0.491">
-          <a-triangle
-            class="raycastable menu-button"
-            color="#FFFFF"
-            vertex-c="1 -1 0"
-            material=""
-            geometry="vertexC: 0 -0.1 0; vertexA: 0 0.1 0; vertexB: -0.2 0 0"
-            scale="0.3 0.3 0.3"
-          ></a-triangle>
-
-          <a-plane
-            id="backToMenuButton"
-            class="raycastable menu-button"
-            geometry="height: 0.03; width: 0.03"
-            position="-0.01561 0 0.008"
-            material=""
-          >
-          </a-plane>
-        </a-entity>
         <a-text
           value="Tutorial"
           text="width: 1.33"
@@ -214,7 +219,11 @@
             align="center"
           ></a-text>
 
-          <a-entity id="previousStepContainer" position="0.639 0.947 -0.491" visible="false">
+          <a-entity
+            id="previousStepContainer"
+            position="0.639 0.947 -0.491"
+            visible="false"
+          >
             <a-plane
               id="previousStep"
               class="raycastable menu-button"
@@ -228,7 +237,6 @@
               material=""
               geometry="vertexC: 0 -0.1 0; vertexA: 0 0.1 0; vertexB: -0.2 0 0"
               scale="0.3 0.3 0.3"
-              
             ></a-triangle>
           </a-entity>
           <a-entity id="nextStepContainer" position="0.917 0.956 -0.491">
@@ -249,6 +257,57 @@
             ></a-triangle>
           </a-entity>
         </a-entity>
+      </a-entity>
+      <!--End Tutorial Section -->
+      <!--Start Timer Section -->
+
+      <!--Start Timer Section -->
+      <a-entity
+        id="timer-container"
+        position="0 0 0"
+        visible="false"
+        timer-container
+      >
+        <!--Timer component from https://github.com/rdub80/aframe-gui-->
+        <a-text
+          value="Timer"
+          text="width: 1.33"
+          position="0.65
+                  1.5 -0.490"
+        ></a-text>
+        <a-plane
+          id="timerStartButton"
+          position="0.61115 1.30102 -0.47339"
+          class="raycastable"
+          scale=""
+          material=""
+          geometry="height: 0.06; width: 0.14"
+        >
+          <a-text
+            value="Start"
+            text="anchor: left; width: 0.97; color: #121111"
+            position="-0.04916 0 -0.00084"
+          ></a-text>
+        </a-plane>
+        <a-text
+          id="timerStep"
+          value="1. Wasser marsch"
+          text="width: 1"
+          position="0.777 1.4
+                      -0.484"
+          align="center"
+          visible="false"
+        ></a-text>
+        <a-gui-circle-timer
+          id="timer"
+          height="0.3"
+          count-down="30"
+          font-family="Arial"
+          font-size="100px"
+          margin="0 0 0.5 0"
+          position="0.785 1.179 -0.428"
+        >
+        </a-gui-circle-timer>
       </a-entity>
     </a-scene>
   </body>
